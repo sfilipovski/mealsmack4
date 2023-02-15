@@ -1,0 +1,81 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+<div style="margin: 2rem;" th:if="${session.admin!=null}">
+    <a class="btn btn-primary" th:href="@{'/restaurants/add'}">+Add new restaurant</a>
+</div>
+
+
+<div style="background-color: rgba(207, 207, 207, 0.655);">
+    <div class="progress" style="width: 100%; margin-top: 2rem; margin-bottom: 2rem;">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+    </div>
+
+    <form th:action="@{/restaurants}" th:method="post" style="margin-left: 2rem;">
+        <label >Select municipality: </label>
+        <select name="municipality" id="municipality">
+            <option value="all" selected>--</option>
+            <option value="Karposh" name="municipality">Karposh</option>
+            <option value="Centar" name="municipality">Centar</option>
+            <option value="Aerodrom" name="municipality">Aerodrom</option>
+            <option value="Kisela Voda" name="municipality">Kisela Voda</option>
+            <option value="Gazi Baba" name="municipality" >Gazi Baba</option>
+            <option value="Gjorche Petrov" name="municipality">Gjorche Petrov</option>
+            <option value="Cair" name="municipality">Cair</option>
+            <option value="Butel" name="municipality">Butel</option>
+        </select>
+
+        <label style="margin-left: 2rem">Select cuisine: </label>
+        <select name="amenity" id="amenity">
+            <option value="all" selected>--</option>
+            <option value="restaurant" name="amenity">Restaurant</option>
+            <option value="fast_food" name="amenity">Fast Food</option>
+        </select>
+
+        <label style="margin-left: 2rem">Select amenity: </label>
+        <select name="cuisine" id="cuisine">
+            <option value="all" selected>--</option>
+            <option   th:each="cuisine : ${cuisines}"  th:value="${cuisine}" th:text="${cuisine}" name="cuisine">Restaurant</option>
+        </select>
+
+        <input type="submit" class="btn btn-success" id="submit" value="Select" style="margin-left: 1rem">
+    </form>
+
+
+
+
+    <table class="table table-hover" style="margin-left:2rem; width: 100%;" th:if="${restaurants.size()>0}">
+        <thead style="font-size: large;">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Municipality</th>
+            <th scope="col">Amenity</th>
+            <th scope="col">Cuisine</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table-light" th:each="restaurant : ${restaurants}">
+            <td scope="col" th:text="${restaurant.getName()}"></td>
+            <td th:text="${restaurant.getMunicipality()}"></td>
+            <td th:text="${restaurant.getAmenity()}"></td>
+            <td><th:block th:text="${restaurant.getCuisine().get(0)}"></th:block>
+                <span th:if="${restaurant.getCuisine().size()>3}">,
+                    <th:block th:text="${restaurant.getCuisine().get(1)}"></th:block>,
+                <th:block th:text="${restaurant.getCuisine().get(2)}"></th:block>, etc.</span>  </td>
+
+            <td style="text-align: center;"><a class="btn btn-info" th:href="@{'/restaurants/map/{id}' (id=${restaurant.getId()})}">View</a></td>
+
+            <th>
+                <form th:if="${session.admin!=null}" th:method="delete" th:action="@{'/restaurants/delete/{id}' (id=${restaurant.getId()}) }">
+                    <button name="delete-button" type="submit">Delete</button>
+                </form>
+            </th>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <h3 th:if="${restaurants.size()==0}" style="margin-left: 3rem">0 results found!</h3>
+
+    <hr style="margin-top: 3rem;">
+</div>
+</th:block>

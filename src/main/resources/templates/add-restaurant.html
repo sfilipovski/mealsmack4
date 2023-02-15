@@ -1,0 +1,62 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+<div style="margin: 3rem; text-align: center;" >
+</div>
+
+
+<div class="row mb-4" style="margin: auto; width: 70%;">
+    <div class="col d-flex justify-content-left" >
+        <form method="post" th:action="@{/restaurants/add}">
+            <div class="form-group" style="margin: 2rem">
+                <label for="name" style="font-weight: bold">Name: </label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+            </div>
+
+            <div class="form-group" style="margin: 2rem">
+                <label for="latitude" style="font-weight: bold">Latitude: </label>
+                <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Enter latitude">
+            </div>
+
+            <div class="form-group" style="margin: 2rem">
+                <label for="longitude" style="font-weight: bold">Longitude: </label>
+                <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Enter longitude">
+            </div>
+
+            <div class="form-group" style="margin: 2rem">
+                <label for="municipality" style="font-weight: bold">Municipality: </label>
+                <select class="custom-select mr-sm-2" id="municipality" name="municipality">
+                    <option selected value="Centar" name="municipality">Centar</option>
+                    <option value="Karposh" name="municipality">Karposh</option>
+                    <option value="Aerodrom" name="municipality">Aerodrom</option>
+                    <option value="Kisela Voda" name="municipality">Kisela Voda</option>
+                    <option value="Cair" name="municipality">Cair</option>
+                    <option value="Gazi Baba" name="municipality">Gazi Baba</option>
+                    <option value="Butel" name="municipality">Butel</option>
+                    <option value="Gjorche Petrov" name="municipality">Gjorche Petrov</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="margin: 2rem">
+                <label for="amenity" style="font-weight: bold">Amenity:</label>
+                <select class="custom-select mr-sm-2" id="amenity" name="amenity">
+                    <option selected value="restaurant" name="amenity">Restaurant</option>
+                    <option value="fast_food" name="amenity">Fast Food</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="margin: 2rem">
+                <label for="amenity" style="font-weight: bold">Cuisine:</label>
+                <select class="custom-select mr-sm-2" id="cuisine" name="cuisine">
+                    <option th:each="cuisine : ${cuisines}"  th:value="${cuisine}"  th:text="${cuisine}" name="Cuisine"></option>
+                </select>
+            </div>
+
+
+            <input type="submit" class="btn btn-primary">
+        </form>
+    </div>
+
+
+</div>
+
+<hr style="margin-top: 3rem;">
+</th:block>
